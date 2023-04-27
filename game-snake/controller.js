@@ -11,11 +11,10 @@ var controller = {
 
         var play = setInterval( function(e) {
             if (thatController.model.snake.dead) {
-                thatView.done();
+
                 alert("Game is Over");
                 clearInterval(play);
             } else {
-                thatController.update();
                 thatController.update();
             }
         } , 200);
@@ -29,6 +28,7 @@ var controller = {
 },
 //update game
   update: function() {
+        this.view.drawGround();
     this.model.updateSnake(this.direction);
     this.view.drawFood();
     this.view.drawSnake();

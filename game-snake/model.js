@@ -41,6 +41,7 @@ var model = {
                     this.snake.length++;
                     this.snake.body.unshift([this.food.x - 1, this.food.y]);
                     this.destroyFood();
+                    this.updateScore();
                     this.createFood();
                 }
                 break;
@@ -53,6 +54,7 @@ var model = {
                     this.snake.length++;
                     this.snake.body.unshift([this.food.x, this.food.y + 1]);
                     this.destroyFood();
+                    this.updateScore();
                     this.createFood();
                 }
                 break;
@@ -65,6 +67,7 @@ var model = {
                     this.snake.length++;
                     this.snake.body.unshift([this.food.x + 1, this.food.y]);
                     this.destroyFood();
+                    this.updateScore();
                     this.createFood();
                 }
                 break;
@@ -77,6 +80,7 @@ var model = {
                     this.snake.length++;
                     this.snake.body.unshift([this.food.x, this.food.y - 1]);
                     this.destroyFood();
+                    this.updateScore();
                     this.createFood();
                 }
                 break;
@@ -104,13 +108,20 @@ var model = {
 
     checkSnake() {
         var head = this.snake.body[0];
-        var scale = Math.floor(this.gridSize / 40);
+        var scale = view.scale;
         //check if snake hits wall
-        if (head[0] < 0 || head[0] > this.gridSize - scale || head[1] < 0 || head[1] > this.gridSize - scale) {
+        if (head[0] < 0 || head[0] > (view.canvas.width - scale) || head[1] < 0 || head[1] > (view.canvas.height - scale)) {
             return true;
+        }
+        //check if snake hits itself
+        for (var i = 1; i < this.snake.body.length; i++) {
+            if (head[0] === this.snake.body[i][0] && head[1] === this.snake.body[i][1]) {
+                return true;
+            }
         }
         return false;
     }
+
 }
 
 
